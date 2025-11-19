@@ -119,7 +119,7 @@ exports.findAllInLowStock = (req, res) => {
         });
 };
 
-exports.findAllCategory = (req, res) => {
+exports.findByCategory = (req, res) => {
     const category = req.params.category;
     Product.findAll({ where: { category: category } })
         .then((data) => {
