@@ -107,17 +107,22 @@ exports.delete = (req, res) => {
 };
 
 exports.findAllInLowStock = (req, res) => {
-    Product.findAll({ where: { stock: { [Op.gt]:  0 } < 5} })
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving products in stock.",
-            });
+    Product.findAll({
+        where: {
+            stock: { [Op.lt]: 5 } // menor que 5
+        }
+    })
+    .then((data) => {
+        res.send(data);
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while retrieving products in low stock.",
         });
+    });
 };
+
 
 exports.findByCategory = (req, res) => {
     const category = req.params.category;
